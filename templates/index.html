@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>RemindME</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">REMINDING TABLE</h1>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center">There are no reminders. Create one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Reminders</th>
+            <th>Created on</th>
+            <th>To perform</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.rem_desc }}</td>
+                <td>{{ task.created_date.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="rem_desc" id="content">
+            <input type="submit" value="New Reminder">
+        </form>
+    </div>
+</div>
+{% endblock %}
